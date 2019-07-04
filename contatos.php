@@ -1,8 +1,5 @@
 <?php
 
-//var_dump($_REQUEST);
-//var_dump($_SERVER);
-
 include_once('include.php');
 
 switch($method)
@@ -26,6 +23,8 @@ switch($method)
 	case 'HEAD':
 		$msg = "you want nothing";
 		$status = "OK";
+		break;
+	default:
 		break;
 }
 
