@@ -1,38 +1,42 @@
 <?php
 
-//var_dump($_SERVER);
-
-$method = ( array_key_exists("REQUEST_METHOD",$_SERVER) ? $_SERVER["REQUEST_METHOD"] : "" );
-$uri = ( array_key_exists("REQUEST_URI",$_SERVER) ? $_SERVER["REQUEST_URI"] : "" );
-
-//echo $uri;
-$resources = explode("/",$uri);
-
-/*
-
-API
-
-http://api/document/id
-
-documentos:
-	usuarios
-
-*/
+include_once('include.php');
 
 switch( $method )
 {
-	case "GET":
+	case 'GET':
+		$msg = "you want to get information about user $id";
+		$status = "OK";
 		break;
-	case "POST":
-		var_dump($resources);
+	case 'POST':
+		$msg = "you want to update information about user $id";
+		$status = "OK";
 		break;
-	case "PUT":
+	case 'PUT':
+		$msg = "you want to create user $id";
+		$status = "OK";
 		break;
-	case "HEAD":
+	case 'DELETE':
+		$msg = "you want to delete user $id";
+		$status = "OK";
 		break;
-	case "DELETE":
+	case 'HEAD':
+		$msg = "you want nothing";
+		$status = "OK";
 		break;
 	default:
 		break;
 }
+		
+echo json_encode(
+	array(
+		"status" => $status,
+		"message" => $msg,
+		"response" => array(
+						"id" => $id,
+						"name" => ( array_key_exists('name',$input) ? $input['name'] : "" ),
+						"age" => ( array_key_exists('age',$input) ? $input['age'] : "" )
+					)
+	)
+);
 ?>
